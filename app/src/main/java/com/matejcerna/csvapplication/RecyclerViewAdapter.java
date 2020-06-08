@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.matejcerna.csvapplication.model.CarrierPlan;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
