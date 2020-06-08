@@ -1,10 +1,22 @@
-package com.matejcerna.csvapplication;
+package com.matejcerna.csvapplication.model;
 
-public class CarrierPlan {
+import com.orm.SugarRecord;
+import com.orm.dsl.Column;
+import com.orm.dsl.Table;
 
+@Table(name ="carrier_plans")
+public class CarrierPlan extends SugarRecord {
+
+    @Column(name = "customer")
     String customer;
+
+    @Column(name = "mdn")
     String mdn;
+
+    @Column(name = "sprint_plan")
     String sprint_plan;
+
+    @Column(name = "socs")
     String socs;
 
     public String getCustomer() {

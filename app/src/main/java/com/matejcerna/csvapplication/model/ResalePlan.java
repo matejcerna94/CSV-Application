@@ -1,7 +1,16 @@
-package com.matejcerna.csvapplication;
+package com.matejcerna.csvapplication.model;
 
-public class ResalePlan {
+import com.orm.SugarRecord;
+import com.orm.dsl.Column;
+import com.orm.dsl.Table;
+
+@Table(name ="resale_plans")
+public class ResalePlan extends SugarRecord {
+
+    @Column(name = "mdn")
     String mdn;
+
+    @Column(name = "resale_plan")
     String resale_plan;
 
     public String getMdn() {
