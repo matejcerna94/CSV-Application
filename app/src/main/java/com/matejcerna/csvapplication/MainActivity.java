@@ -1,5 +1,6 @@
 package com.matejcerna.csvapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import com.matejcerna.csvapplication.model.CarrierPlan;
 import com.matejcerna.csvapplication.model.ResalePlan;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -237,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
             // Prints throwable details
             e.printStackTrace();
         }
+        //saveData();
 
     }
 
@@ -247,6 +250,22 @@ public class MainActivity extends AppCompatActivity {
         List<FirstFile> firstFile = dataBaseHelper.getFilesForFirstFile();
         Toast.makeText(this, firstFile.toString(), Toast.LENGTH_SHORT).show();
         Log.d("everyone1", firstFile.toString());
+        StringBuilder data = new StringBuilder();
+        data.append("MDN,RESALE PLAN,SPRINT PLAN, SOCS");
+        for (int i = 0; i < firstFile.size(); i++) {
+            data.append("\n" + firstFile.get(i).getMdn() + ","
+                    + firstFile.get(i).getResale_plan() + ","
+                    + firstFile.get(i).getSprint_plan() + ","
+                    + firstFile.get(i).getSocs());
+        }
+
+        try {
+            FileOutputStream out = openFileOutput("data3.csv", Context.MODE_PRIVATE);
+            out.write((data.toString()).getBytes());
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick(R.id.button2)
@@ -259,5 +278,21 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button3)
     public void getThirdData() {
+    }
+
+    public void saveData() {
+        StringBuilder data = new StringBuilder();
+        data.append("Time , Distance");
+        for (int i = 0; i < 5; i++) {
+            data.append("\n" + String.valueOf(i) + "," + String.valueOf(i * i));
+        }
+
+        try {
+            FileOutputStream out = openFileOutput("data1.csv", Context.MODE_PRIVATE);
+            out.write((data.toString()).getBytes());
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

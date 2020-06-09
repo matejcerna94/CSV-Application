@@ -16,7 +16,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     Context context;
 
     public DataBaseHelper(Context context) {
-        super(context, "baza4.db", null, 1);
+        super(context, "baza6.db", null, 1);
     }
 
 
