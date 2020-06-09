@@ -1,41 +1,26 @@
 package com.matejcerna.csvapplication;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.matejcerna.csvapplication.model.CarrierPlan;
 import com.matejcerna.csvapplication.model.ResalePlan;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,15 +45,7 @@ public class MainActivity extends AppCompatActivity {
         //readWeatherDataByColumn();
 
 
-
-
     }
-
-
-
-
-
-
 
 
     private void readWeatherDataByColumn() {
@@ -92,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 // Print in logcat
 //                System.out.println("Column 0 = '" + cols[0] + "', Column 1 = '" + cols[1] + "', Column 2: '" + cols[2] + "'");
                 if (cols.length >= 4) {
-                   // if (cols[3].contains("DSMLTESOC")) {
-                        System.out.println("customerr = " + cols[0] + ", mbn = " + cols[1] + ", plan: " + cols[2] + ", soc: " + cols[3] + "");
+                    // if (cols[3].contains("DSMLTESOC")) {
+                    System.out.println("customerr = " + cols[0] + ", mbn = " + cols[1] + ", plan: " + cols[2] + ", soc: " + cols[3] + "");
                     //}
                 }
 
@@ -151,13 +128,13 @@ public class MainActivity extends AppCompatActivity {
 
                 carrierPlan.setCustomer(tokens1[0]);
 
-                    carrierPlan.setMdn(Long.parseLong(tokens1[1]));
+                carrierPlan.setMdn(Long.parseLong(tokens1[1]));
 
 
-                    carrierPlan.setSprint_plan(tokens1[2]);
+                carrierPlan.setSprint_plan(tokens1[2]);
 
 
-                    carrierPlan.setSocs(tokens1[3]);
+                carrierPlan.setSocs(tokens1[3]);
 
 
                 carrierPlan.save();
@@ -193,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                 resalePlanList.add(resalePlan);
 
                 //recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this, (ArrayList<CarrierPlan>) carrierPlanList);
-               // recyclerView.setAdapter(recyclerViewAdapter);
+                // recyclerView.setAdapter(recyclerViewAdapter);
 
 
                 // Log the object
@@ -260,8 +237,15 @@ public class MainActivity extends AppCompatActivity {
             // Prints throwable details
             e.printStackTrace();
         }
-        //saveData();
+
     }
 
 
+    @OnClick(R.id.button)
+    public void onViewClicked() {
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+        List<FirstFile> everyone = dataBaseHelper.getFilesForFirstFile();
+        Toast.makeText(this, everyone.toString(), Toast.LENGTH_SHORT).show();
+        Log.d("everyone", everyone.toString());
+    }
 }
