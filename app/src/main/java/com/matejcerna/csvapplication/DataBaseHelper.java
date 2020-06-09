@@ -16,11 +16,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     Context context;
 
     public DataBaseHelper(Context context) {
-        super(context, "baza6.db", null, 1);
+        super(context, "baza.db", null, 1);
     }
 
 
-    public List<FirstFile> getFilesForFirstFile() {
+    public List<FirstFile> getDataForFirstFile() {
         List<FirstFile> returnList = new ArrayList<>();
 
         String query = "SELECT carrier_plans.mdn, resale_plans.resale_plan, carrier_plans.sprint_plan, carrier_plans.socs FROM carrier_plans JOIN resale_plans ON carrier_plans.mdn=resale_plans.mdn";
@@ -47,7 +47,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public List<SecondFile> getFilesForSecondFile() {
+    public List<SecondFile> getDataForSecondFile() {
         List<SecondFile> returnList = new ArrayList<>();
 
         String query = "SELECT carrier_plans.mdn, resale_plans.resale_plan, carrier_plans.sprint_plan, carrier_plans.socs FROM carrier_plans JOIN resale_plans ON carrier_plans.mdn=resale_plans.mdn";

@@ -2,6 +2,7 @@ package com.matejcerna.csvapplication;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,9 @@ import com.matejcerna.csvapplication.model.CarrierPlan;
 import com.matejcerna.csvapplication.model.ResalePlan;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -245,12 +248,65 @@ public class MainActivity extends AppCompatActivity {
 
 
     @OnClick(R.id.button1)
-    public void getFirstData() {
+    public void generateFirstFile() {
         DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
-        List<FirstFile> firstFile = dataBaseHelper.getFilesForFirstFile();
+        List<FirstFile> firstFile = dataBaseHelper.getDataForFirstFile();
         Toast.makeText(this, firstFile.toString(), Toast.LENGTH_SHORT).show();
         Log.d("everyone1", firstFile.toString());
-        StringBuilder data = new StringBuilder();
+        try {
+            File root = Environment.getExternalStorageDirectory();
+            File gpxfile = new File(root, "Datoteka1.csv");
+            FileWriter writer = new FileWriter(gpxfile);
+            writer.append("MDN,Resale Plan,Sprint Plan,SOCs");
+            for (int i = 0; i < firstFile.size(); i++) {
+                writer.append("\n" + firstFile.get(i).getMdn() + ","
+                        + firstFile.get(i).getResale_plan() + ","
+                        + firstFile.get(i).getSprint_plan() + ","
+                        + firstFile.get(i).getSocs());
+            }
+
+            //generate whatever data you want
+
+            writer.flush();
+            writer.close();
+            Toast.makeText(this, "File saved in" + root, Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @OnClick(R.id.button2)
+    public void generateSecondFile() {
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+        List<SecondFile> secondFile = dataBaseHelper.getDataForSecondFile();
+        Toast.makeText(this, secondFile.toString(), Toast.LENGTH_LONG).show();
+        Log.d("everyone2", secondFile.toString());
+        try {
+            File root = Environment.getExternalStorageDirectory();
+            File gpxfile = new File(root, "Datoteka2.csv");
+            FileWriter writer = new FileWriter(gpxfile);
+            writer.append("MDN,Resale Plan,Sprint Plan,LTE SOCs");
+            for (int i = 0; i < secondFile.size(); i++) {
+                writer.append("\n" + secondFile.get(i).getMdn() + ","
+                        + secondFile.get(i).getResale_plan() + ","
+                        + secondFile.get(i).getSprint_plan() + ","
+                        + secondFile.get(i).getLteSocs());
+            }
+            writer.flush();
+            writer.close();
+            Toast.makeText(this, "File saved in" + root, Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.button3)
+    public void getThirdData() {
+    }
+
+    public void saveData() {
+       /* StringBuilder data = new StringBuilder();
         data.append("MDN,RESALE PLAN,SPRINT PLAN, SOCS");
         for (int i = 0; i < firstFile.size(); i++) {
             data.append("\n" + firstFile.get(i).getMdn() + ","
@@ -265,34 +321,10 @@ public class MainActivity extends AppCompatActivity {
             out.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
-    @OnClick(R.id.button2)
-    public void getSecondData() {
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
-        List<SecondFile> secondFile = dataBaseHelper.getFilesForSecondFile();
-        Toast.makeText(this, secondFile.toString(), Toast.LENGTH_SHORT).show();
-        Log.d("everyone2", secondFile.toString());
-    }
+    private static void generateCsvFile(String sFileName) {
 
-    @OnClick(R.id.button3)
-    public void getThirdData() {
-    }
-
-    public void saveData() {
-        StringBuilder data = new StringBuilder();
-        data.append("Time , Distance");
-        for (int i = 0; i < 5; i++) {
-            data.append("\n" + String.valueOf(i) + "," + String.valueOf(i * i));
-        }
-
-        try {
-            FileOutputStream out = openFileOutput("data1.csv", Context.MODE_PRIVATE);
-            out.write((data.toString()).getBytes());
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
