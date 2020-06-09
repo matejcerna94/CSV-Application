@@ -241,11 +241,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.button)
-    public void onViewClicked() {
+    @OnClick(R.id.button1)
+    public void getFirstData() {
         DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
-        List<FirstFile> everyone = dataBaseHelper.getFilesForFirstFile();
-        Toast.makeText(this, everyone.toString(), Toast.LENGTH_SHORT).show();
-        Log.d("everyone", everyone.toString());
+        List<FirstFile> firstFile = dataBaseHelper.getFilesForFirstFile();
+        Toast.makeText(this, firstFile.toString(), Toast.LENGTH_SHORT).show();
+        Log.d("everyone1", firstFile.toString());
+    }
+
+    @OnClick(R.id.button2)
+    public void getSecondData() {
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+        List<SecondFile> secondFile = dataBaseHelper.getFilesForSecondFile();
+        Toast.makeText(this, secondFile.toString(), Toast.LENGTH_SHORT).show();
+        Log.d("everyone2", secondFile.toString());
+    }
+
+    @OnClick(R.id.button3)
+    public void getThirdData() {
     }
 }

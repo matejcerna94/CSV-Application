@@ -7,16 +7,29 @@
     tools:context=".MainActivity">
 
     <Button
-        android:layout_centerHorizontal="true"
-        android:text="load"
-        android:id="@+id/button"
+        android:text="LOAD FIRST DATA"
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_toEndOf="@id/button1"
+        android:text="LOAD SECOND DATA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_toEndOf="@id/button2"
+        android:text="LOAD THIRD DATA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
 
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@id/button"
+        android:layout_below="@id/button1"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
