@@ -37,7 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final CarrierPlan carrierPlan = carrierPlansList.get(position);
 
         final String order_id = carrierPlan.getCustomer();
-        final String item_name = carrierPlan.getMdn();
+        final String item_name = String.valueOf(carrierPlan.getMdn());
         final String amount = carrierPlan.getSprint_plan();
         final String single_item_price = carrierPlan.getSocs();
 

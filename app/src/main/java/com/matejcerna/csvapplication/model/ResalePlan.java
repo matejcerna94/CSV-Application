@@ -8,16 +8,16 @@ import com.orm.dsl.Table;
 public class ResalePlan extends SugarRecord {
 
     @Column(name = "mdn")
-    String mdn;
+    long mdn;
 
     @Column(name = "resale_plan")
     String resale_plan;
 
-    public String getMdn() {
+    public long getMdn() {
         return mdn;
     }
 
-    public void setMdn(String mdn) {
+    public void setMdn(long mdn) {
         this.mdn = mdn;
     }
 

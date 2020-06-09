@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
                 carrierPlan.setCustomer(tokens1[0]);
 
-                    carrierPlan.setMdn(tokens1[1]);
+                    carrierPlan.setMdn(Long.parseLong(tokens1[1]));
 
 
                     carrierPlan.setSprint_plan(tokens1[2]);
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Setters
                 if (tokens2.length >= 2) {
-                    resalePlan.setMdn(tokens2[0]);
+                    resalePlan.setMdn(Long.parseLong(tokens2[0]));
                 }
                 if (tokens2.length >= 2) {
                     resalePlan.setResale_plan(tokens2[1]);
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if (tokens.length >= 2) {
-                    resalePlan.setMdn(tokens[0]);
+                    resalePlan.setMdn(Integer.parseInt(tokens[0]));
                 }
                 if (tokens.length >= 2) {
                     resalePlan.setResale_plan(tokens[1]);

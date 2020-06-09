@@ -11,7 +11,7 @@ public class CarrierPlan extends SugarRecord {
     String customer;
 
     @Column(name = "mdn")
-    String mdn;
+    long mdn;
 
     @Column(name = "sprint_plan")
     String sprint_plan;
@@ -27,11 +27,11 @@ public class CarrierPlan extends SugarRecord {
         this.customer = customer;
     }
 
-    public String getMdn() {
+    public long getMdn() {
         return mdn;
     }
 
-    public void setMdn(String mdn) {
+    public void setMdn(long mdn) {
         this.mdn = mdn;
     }
 
