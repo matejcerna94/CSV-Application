@@ -12,11 +12,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataBaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
     Context context;
 
-    public DataBaseHelper(Context context) {
-        super(context, "baza.db", null, 1);
+    public DatabaseHelper(Context context) {
+        super(context, "baza6.db", null, 1);
     }
 
 
@@ -36,14 +36,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 returnList.add(firstFile);
                 Log.d("List size 1", String.valueOf(returnList.size()));
             } while (cursor.moveToNext());
-
         } else {
-
+            Toast.makeText(context, "No data in database!", Toast.LENGTH_SHORT).show();
         }
-
         cursor.close();
         db.close();
-
         return returnList;
     }
 
@@ -68,14 +65,33 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 returnList.add(secondFile);
                 Log.d("List size 2", String.valueOf(returnList.size()));
             } while (cursor.moveToNext());
-
         } else {
             Toast.makeText(context, "No data in database!", Toast.LENGTH_SHORT).show();
         }
-
         cursor.close();
         db.close();
+        return returnList;
+    }
 
+    public List<ThirdFile> getDataForThirdFile() {
+        List<ThirdFile> returnList = new ArrayList<>();
+
+        String query = "SELECT resale_plans.resale_plan, COUNT(resale_plan) FROM resale_plans GROUP BY resale_plan";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String resale_plan = cursor.getString(0);
+                int number_of_devices = cursor.getInt(1);
+                ThirdFile thirdFile = new ThirdFile(resale_plan, number_of_devices);
+                returnList.add(thirdFile);
+                Log.d("List size 3", String.valueOf(returnList.size()));
+            } while (cursor.moveToNext());
+        } else {
+            Toast.makeText(context, "No data in database!", Toast.LENGTH_SHORT).show();
+        }
+        cursor.close();
+        db.close();
         return returnList;
     }
 

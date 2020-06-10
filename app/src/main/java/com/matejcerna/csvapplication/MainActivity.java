@@ -1,6 +1,5 @@
 package com.matejcerna.csvapplication;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import com.matejcerna.csvapplication.model.ResalePlan;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,41 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    private void readWeatherDataByColumn() {
-        // Read the raw csv file
-        InputStream is = getResources().openRawResource(R.raw.pretplatnici);
-
-        // Reads text from character-input stream, buffering characters for efficient reading
-        BufferedReader br = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-
-        // Initialization
-        String line = "";
-
-        // Handling exceptions
-        try {
-            br.readLine();
-            // If buffer is not empty
-            while ((line = br.readLine()) != null) {
-                // use comma as separator columns of CSV
-                String[] cols = line.split(",");
-
-                // Print in logcat
-//                System.out.println("Column 0 = '" + cols[0] + "', Column 1 = '" + cols[1] + "', Column 2: '" + cols[2] + "'");
-                if (cols.length >= 4) {
-                    // if (cols[3].contains("DSMLTESOC")) {
-                    System.out.println("customerr = " + cols[0] + ", mbn = " + cols[1] + ", plan: " + cols[2] + ", soc: " + cols[3] + "");
-                    //}
-                }
-
-
-            }
-        } catch (IOException e) {
-            // Prints throwable details
-            e.printStackTrace();
-        }
-    }
-
     private void loadFirstFile() {
         // Read the raw csv file
         InputStream is1 = getResources().openRawResource(R.raw.carrier_plans);
@@ -120,36 +83,17 @@ public class MainActivity extends AppCompatActivity {
                 CarrierPlan carrierPlan = new CarrierPlan();
 
                 // Setters
-              /*  carrierPlan.setCustomer(tokens1[0]);
-                if (tokens1.length >= 4) {
-                    carrierPlan.setMdn(tokens1[1]);
-                }
-                if (tokens1.length >= 4) {
-                    carrierPlan.setSprint_plan(tokens1[2]);
-                }
-                if (tokens1.length >= 4) {
-                    carrierPlan.setSocs(tokens1[3]);
-                }*/
-
                 carrierPlan.setCustomer(tokens1[0]);
-
                 carrierPlan.setMdn(Long.parseLong(tokens1[1]));
-
-
                 carrierPlan.setSprint_plan(tokens1[2]);
-
-
                 carrierPlan.setSocs(tokens1[3]);
-
-
                 carrierPlan.save();
-                Toast.makeText(this, "Carrier plans successfully saved to database!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Carrier plans successfully saved to database!", Toast.LENGTH_LONG).show();
                 // Adding object to a class
                 carrierPlanList.add(carrierPlan);
 
                 recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this, (ArrayList<CarrierPlan>) carrierPlanList);
                 recyclerView.setAdapter(recyclerViewAdapter);
-
 
                 // Log the object
                 Log.d("My Activit first file", "Just created: " + carrierPlan);
@@ -161,14 +105,13 @@ public class MainActivity extends AppCompatActivity {
                 String[] tokens2 = line2.split(",");
                 // Read the data
                 ResalePlan resalePlan = new ResalePlan();
-
                 // Setters
-                if (tokens2.length >= 2) {
+
                     resalePlan.setMdn(Long.parseLong(tokens2[0]));
-                }
-                if (tokens2.length >= 2) {
+
+
                     resalePlan.setResale_plan(tokens2[1]);
-                }
+
 
                 resalePlan.save();
                 // Adding object to a class
@@ -249,11 +192,12 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button1)
     public void generateFirstFile() {
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+        DatabaseHelper dataBaseHelper = new DatabaseHelper(MainActivity.this);
         List<FirstFile> firstFile = dataBaseHelper.getDataForFirstFile();
         Toast.makeText(this, firstFile.toString(), Toast.LENGTH_SHORT).show();
         Log.d("everyone1", firstFile.toString());
         try {
+            String file_name = "Datoteka1.csv";
             File root = Environment.getExternalStorageDirectory();
             File gpxfile = new File(root, "Datoteka1.csv");
             FileWriter writer = new FileWriter(gpxfile);
@@ -269,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
             writer.flush();
             writer.close();
-            Toast.makeText(this, "File saved in" + root, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "File saved in" + root + " with name" + file_name, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -278,11 +222,12 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button2)
     public void generateSecondFile() {
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+        DatabaseHelper dataBaseHelper = new DatabaseHelper(MainActivity.this);
         List<SecondFile> secondFile = dataBaseHelper.getDataForSecondFile();
         Toast.makeText(this, secondFile.toString(), Toast.LENGTH_LONG).show();
         Log.d("everyone2", secondFile.toString());
         try {
+            String file_name = "Datoteka2.csv";
             File root = Environment.getExternalStorageDirectory();
             File gpxfile = new File(root, "Datoteka2.csv");
             FileWriter writer = new FileWriter(gpxfile);
@@ -295,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
             }
             writer.flush();
             writer.close();
-            Toast.makeText(this, "File saved in" + root, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "File saved in" + root + " with name" + file_name, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -303,28 +248,25 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button3)
     public void getThirdData() {
-    }
-
-    public void saveData() {
-       /* StringBuilder data = new StringBuilder();
-        data.append("MDN,RESALE PLAN,SPRINT PLAN, SOCS");
-        for (int i = 0; i < firstFile.size(); i++) {
-            data.append("\n" + firstFile.get(i).getMdn() + ","
-                    + firstFile.get(i).getResale_plan() + ","
-                    + firstFile.get(i).getSprint_plan() + ","
-                    + firstFile.get(i).getSocs());
-        }
-
+        DatabaseHelper dataBaseHelper = new DatabaseHelper(MainActivity.this);
+        List<ThirdFile> thirdFile = dataBaseHelper.getDataForThirdFile();
+        Toast.makeText(this, thirdFile.toString(), Toast.LENGTH_LONG).show();
+        Log.d("everyone2", thirdFile.toString());
         try {
-            FileOutputStream out = openFileOutput("data3.csv", Context.MODE_PRIVATE);
-            out.write((data.toString()).getBytes());
-            out.close();
-        } catch (Exception e) {
+            String file_name = "Datoteka3.csv";
+            File root = Environment.getExternalStorageDirectory();
+            File gpxfile = new File(root, file_name);
+            FileWriter writer = new FileWriter(gpxfile);
+            writer.append("Resale Plan,Number Of Devices");
+            for (int i = 0; i < thirdFile.size(); i++) {
+                writer.append("\n" + thirdFile.get(i).getResale_plan() + ","
+                        + thirdFile.get(i).getNumber_of_devices());
+            }
+            writer.flush();
+            writer.close();
+            Toast.makeText(this, "File saved in" + root + " with name" + file_name, Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
             e.printStackTrace();
-        }*/
-    }
-
-    private static void generateCsvFile(String sFileName) {
-
+        }
     }
 }
