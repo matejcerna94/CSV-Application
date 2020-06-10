@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             String file_name = "Datoteka1.csv";
             File root = Environment.getExternalStorageDirectory();
-            File file = new File(root, "Datoteka1.csv");
+            File file = new File(root, file_name);
             FileWriter writer = new FileWriter(file);
             writer.append("MDN,Resale Plan,Sprint Plan,SOCs");
             for (int i = 0; i < firstFile.size(); i++) {
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             String file_name = "Datoteka2.csv";
             File root = Environment.getExternalStorageDirectory();
-            File file = new File(root, "Datoteka2.csv");
+            File file = new File(root, file_name);
             FileWriter writer = new FileWriter(file);
             writer.append("MDN,Resale Plan,Sprint Plan,LTE SOCs");
             for (int i = 0; i < secondFile.size(); i++) {
