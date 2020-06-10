@@ -7,24 +7,24 @@
     tools:context=".MainActivity">
 
     <Button
-        android:text="LOAD FIRST DATA"
+        android:text="GENERATE FIRST FILE"
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="100dp"
+        android:layout_height="70dp"/>
 
     <Button
         android:id="@+id/button2"
         android:layout_toEndOf="@id/button1"
-        android:text="LOAD SECOND DATA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="GENERATE SECOND FILE"
+        android:layout_width="100dp"
+        android:layout_height="70dp"/>
 
     <Button
         android:id="@+id/button3"
         android:layout_toEndOf="@id/button2"
-        android:text="LOAD THIRD DATA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="GENERATE THIRD FILE"
+        android:layout_width="100dp"
+        android:layout_height="70dp"/>
 
 
 
