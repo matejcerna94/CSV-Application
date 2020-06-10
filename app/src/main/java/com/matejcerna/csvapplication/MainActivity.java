@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.button1)
     public void generateFirstFile() {
         DatabaseHelper dataBaseHelper = new DatabaseHelper(MainActivity.this);
-        List<FirstFile> firstFile = dataBaseHelper.getDataForFirstFile();
+        List<FirstFile> firstFile = dataBaseHelper.getDataFromDatabaseForFirstFile();
         Toast.makeText(this, firstFile.toString(), Toast.LENGTH_SHORT).show();
         try {
             String file_name = "Datoteka1.csv";
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.button2)
     public void generateSecondFile() {
         DatabaseHelper dataBaseHelper = new DatabaseHelper(MainActivity.this);
-        List<SecondFile> secondFile = dataBaseHelper.getDataForSecondFile();
+        List<SecondFile> secondFile = dataBaseHelper.getDataFromDatabaseForSecondFile();
         Toast.makeText(this, secondFile.toString(), Toast.LENGTH_LONG).show();
         try {
             String file_name = "Datoteka2.csv";
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.button3)
     public void generateThirdFile() {
         DatabaseHelper dataBaseHelper = new DatabaseHelper(MainActivity.this);
-        List<ThirdFile> thirdFile = dataBaseHelper.getDataForThirdFile();
+        List<ThirdFile> thirdFile = dataBaseHelper.getDataFromDatabaseForThirdFile();
         Toast.makeText(this, thirdFile.toString(), Toast.LENGTH_LONG).show();
         try {
             String file_name = "Datoteka3.csv";

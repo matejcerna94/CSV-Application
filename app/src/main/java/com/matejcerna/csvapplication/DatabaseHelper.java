@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public List<FirstFile> getDataForFirstFile() {
+    public List<FirstFile> getDataFromDatabaseForFirstFile() {
         List<FirstFile> returnList = new ArrayList<>();
 
         String query = "SELECT carrier_plans.mdn, resale_plans.resale_plan, carrier_plans.sprint_plan, carrier_plans.socs FROM carrier_plans JOIN resale_plans ON carrier_plans.mdn=resale_plans.mdn";
@@ -46,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public List<SecondFile> getDataForSecondFile() {
+    public List<SecondFile> getDataFromDatabaseForSecondFile() {
         List<SecondFile> returnList = new ArrayList<>();
 
         String query = "SELECT carrier_plans.mdn, resale_plans.resale_plan, carrier_plans.sprint_plan, carrier_plans.socs FROM carrier_plans JOIN resale_plans ON carrier_plans.mdn=resale_plans.mdn";
@@ -75,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public List<ThirdFile> getDataForThirdFile() {
+    public List<ThirdFile> getDataFromDatabaseForThirdFile() {
         List<ThirdFile> returnList = new ArrayList<>();
 
         String query = "SELECT resale_plans.resale_plan, COUNT(resale_plan) FROM resale_plans GROUP BY resale_plan";
