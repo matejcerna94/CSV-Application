@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         List<FirstFile> firstFile = dataBaseHelper.getDataFromDatabaseForFirstFile();
         Toast.makeText(this, firstFile.toString(), Toast.LENGTH_SHORT).show();
         try {
+            //comm
             String file_name = "Datoteka1.csv";
             File root = Environment.getExternalStorageDirectory();
             File file = new File(root, file_name);
