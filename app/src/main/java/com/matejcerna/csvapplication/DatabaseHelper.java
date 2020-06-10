@@ -2,12 +2,14 @@ package com.matejcerna.csvapplication;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.matejcerna.csvapplication.model.FirstFile;
+import com.matejcerna.csvapplication.model.SecondFile;
+import com.matejcerna.csvapplication.model.ThirdFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     Context context;
 
     public DatabaseHelper(Context context) {
-        super(context, "baza10.db", null, 1);
+        super(context, "csv_database.db", null, 1);
     }
 
 

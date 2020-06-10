@@ -6,32 +6,87 @@
     android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
-    <Button
-        android:text="GENERATE FIRST FILE"
-        android:id="@+id/button1"
-        android:layout_width="100dp"
-        android:layout_height="70dp"/>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_toEndOf="@id/button1"
-        android:text="GENERATE SECOND FILE"
-        android:layout_width="100dp"
-        android:layout_height="70dp"/>
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_toEndOf="@id/button2"
-        android:text="GENERATE THIRD FILE"
-        android:layout_width="100dp"
-        android:layout_height="70dp"/>
-
-
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_below="@id/button1"
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
+    <TextView
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:id="@+id/text_view_first_step"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/first_step"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:id="@+id/text_view_second_step"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/second_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_below="@+id/text_view_first_step"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorRed"
+        android:textColor="@color/colorWhite"
+        android:layout_marginStart="10dp"
+        android:id="@+id/button_load_first_file"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:text="@string/load_first_file" />
+
+    <Button
+        android:layout_below="@id/text_view_second_step"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorRed"
+        android:textColor="@color/colorWhite"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/button_load_second_file"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="@string/load_second_file" />
+
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_load_first_file"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_marginEnd="5dp"
+            android:background="@color/colorYellow"
+            android:id="@+id/button1"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:text="@string/generate_first_file" />
+
+        <Button
+            android:layout_marginEnd="5dp"
+            android:background="@color/colorYellow"
+            android:id="@+id/button2"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:text="@string/generate_second_file" />
+
+
+
+        <Button
+            android:background="@color/colorYellow"
+            android:id="@+id/button3"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:text="@string/generate_third_file" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

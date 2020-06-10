@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">CSVApplication</string>
+    <string name="load_first_file">LOAD FIRST FILE</string>
+    <string name="load_second_file">LOAD SECOND FILE</string>
+    <string name="generate_first_file">Generate first file</string>
+    <string name="generate_second_file">Generate second file</string>
+    <string name="generate_third_file">Generate third file</string>
+    <string name="first_step">First step:</string>
+    <string name="second_step">Second step:</string>
 </resources>

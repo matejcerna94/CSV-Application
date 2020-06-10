@@ -1,4 +1,4 @@
-package com.matejcerna.csvapplication;
+package com.matejcerna.csvapplication.model;
 
 public class ThirdFile {
     String resale_plan;

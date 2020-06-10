@@ -1,15 +1,18 @@
 package com.matejcerna.csvapplication;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.matejcerna.csvapplication.model.CarrierPlan;
+import com.matejcerna.csvapplication.model.FirstFile;
 import com.matejcerna.csvapplication.model.ResalePlan;
+import com.matejcerna.csvapplication.model.SecondFile;
+import com.matejcerna.csvapplication.model.ThirdFile;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,33 +24,25 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerViewAdapter recyclerViewAdapter;
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
     private ArrayList<CarrierPlan> carrierPlanList;
     private ArrayList<ResalePlan> resalePlanList;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait, data is loading!");
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         carrierPlanList = new ArrayList<>();
         resalePlanList = new ArrayList<>();
-
-        loadFirstFile();
-        loadSecondFile();
-
-
     }
 
     private void loadFirstFile() {
@@ -79,12 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 carrierPlan.setSocs(tokens[3]);
                 carrierPlan.save();
 
-                Toast.makeText(this, "Carrier plans successfully saved to database!", Toast.LENGTH_LONG).show();
                 // Adding object to a class
                 carrierPlanList.add(carrierPlan);
-
-                recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this, (ArrayList<CarrierPlan>) carrierPlanList);
-                recyclerView.setAdapter(recyclerViewAdapter);
 
                 // Log the object
                 Log.d("My Activity first file", "Just created: " + carrierPlan);
@@ -116,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
             // If buffer is not empty
             while ((line = reader.readLine()) != null) {
-                Log.d("My Activit second file", "Line: " + line);
+                Log.d("My Activity second file", "Line: " + line);
                 // use comma as separator columns of CSV
                 String[] tokens = line.split(",");
                 // Read the data
@@ -125,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
                 resalePlan.setMdn(Long.parseLong(tokens[0]));
                 resalePlan.setResale_plan(tokens[1]);
                 resalePlan.save();
-                Toast.makeText(this, "Resale plans successfully saved to database!", Toast.LENGTH_LONG).show();
                 // Adding object to a class
                 resalePlanList.add(resalePlan);
                 // Log the object
@@ -159,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             }
             writer.flush();
             writer.close();
-            Toast.makeText(this, "File saved in" + root + " with name" + file_name, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "First file saved in" + root + " with name " + file_name, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -185,14 +175,14 @@ public class MainActivity extends AppCompatActivity {
             }
             writer.flush();
             writer.close();
-            Toast.makeText(this, "File saved in" + root + " with name" + file_name, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Second file saved in" + root + " with name " + file_name, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @OnClick(R.id.button3)
-    public void getThirdData() {
+    public void generateThirdFile() {
         DatabaseHelper dataBaseHelper = new DatabaseHelper(MainActivity.this);
         List<ThirdFile> thirdFile = dataBaseHelper.getDataForThirdFile();
         Toast.makeText(this, thirdFile.toString(), Toast.LENGTH_LONG).show();
@@ -208,9 +198,63 @@ public class MainActivity extends AppCompatActivity {
             }
             writer.flush();
             writer.close();
-            Toast.makeText(this, "File saved in" + root + " with name" + file_name, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Third file saved in" + root + " with name " + file_name, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.button_load_first_file)
+    public void loadFirstFileButton() {
+        new LoadFirstFileClass().execute();
+    }
+
+    @OnClick(R.id.button_load_second_file)
+    public void loadSecondFileButton() {
+        new LoadSecondFileClass().execute();
+    }
+
+    private class LoadFirstFileClass extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            loadFirstFile();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            progressDialog.dismiss();
+            Toast.makeText(MainActivity.this, "First file successfully loaded!", Toast.LENGTH_SHORT).show();
+            super.onPostExecute(aVoid);
+        }
+    }
+
+    private class LoadSecondFileClass extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            loadSecondFile();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            progressDialog.dismiss();
+            Toast.makeText(MainActivity.this, "Second file successfully loaded!", Toast.LENGTH_SHORT).show();
+            super.onPostExecute(aVoid);
         }
     }
 }
